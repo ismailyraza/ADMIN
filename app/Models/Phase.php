@@ -15,4 +15,10 @@ class Phase extends Model
     {
         return $this->hasMany(Message::class);
     }
+
+    // Relationship with users
+    public function users()
+    {
+        return $this->hasMany(User::class, 'phase_id');
+    }
 }

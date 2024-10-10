@@ -1,9 +1,10 @@
+<!-- resources/views/admin/phase_users_detail.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Message History</title>
+    <title>Users in Phase: {{ $phase->phase_name }}</title>
     <style>
         /* Basic reset */
         * {
@@ -36,7 +37,7 @@
 
         table {
             width: 80%; /* Table width */
-            margin-bottom: 30px; /* Space below the table */
+            margin: 0 auto 30px; /* Center the table */
             border-collapse: collapse; /* Remove space between cells */
             background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(200, 200, 200, 0.5)); /* White vignette background for the table */
             border-radius: 10px; /* Rounded corners for the table */
@@ -49,6 +50,7 @@
             text-align: left; /* Align text to the left */
             border-bottom: 1px solid rgba(0, 0, 0, 0.3); /* Separator lines */
             color: black; /* Text color for table cells */
+            white-space: nowrap; /* Prevent text wrapping */
         }
 
         th {
@@ -60,7 +62,7 @@
             background-color: rgba(255, 255, 255, 0.2); /* Highlight row on hover */
         }
 
-        /* Back to Dashboard Button Styles */
+        /* Back to Phases Button Styles */
         .back-button {
             background-color: #4682B4; /* Button color */
             color: white; /* Text color */
@@ -70,6 +72,9 @@
             font-size: 16px; /* Font size */
             cursor: pointer; /* Pointer on hover */
             transition: background-color 0.3s; /* Transition effect */
+            text-decoration: none; /* Remove underline */
+            display: inline-block; /* Align properly */
+            margin-top: 20px; /* Space above the button */
         }
 
         .back-button:hover {
@@ -78,33 +83,35 @@
     </style>
 </head>
 <body>
-    <h1>Message History</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>User</th>
-                <th>Group</th>
-                <th>Phase</th>
-                <th>Message</th>
-                <th>Sent At</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($messages as $message)
+    <div class="container">
+        <h1>Users in Phase: {{ $phase->phase_name }}</h1>
+        <table>
+            <thead>
                 <tr>
-                    <td>{{ $message->user->email }}</td>
-                    <td>{{ $message->group->name }}</td>
-                    <td>{{ $message->phase->name }}</td>
-                    <td>{{ $message->message }}</td>
-                    <td>{{ $message->created_at }}</td>
+                    <th>User ID</th>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <!-- Add other fields you may want to display -->
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
-
-    <!-- Back to Dashboard Button -->
-    <form action="{{ route('dashboard') }}" method="GET">
-        <button type="submit" class="back-button">Back to Dashboard</button>
-    </form>
+            </thead>
+            <tbody>
+                @if($users->isEmpty())
+                    <tr>
+                        <td colspan="3">No users found in this phase.</td>
+                    </tr>
+                @else
+                    @foreach($users as $user)
+                        <tr>
+                            <td>{{ $user->id }}</td>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <!-- Add other fields you may want to display -->
+                        </tr>
+                    @endforeach
+                @endif
+            </tbody>
+        </table>
+        <a href="{{ route('phases.index') }}" class="back-button">Back to Phases</a>
+    </div>
 </body>
 </html>

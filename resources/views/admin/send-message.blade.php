@@ -34,10 +34,10 @@
         }
 
         form {
-            background-color: rgba(255, 255, 255, 0.9); /* White background for the form with transparency */
+            background-color: rgba(255, 255, 255, 0.2); /* Transparent background for the form */
             padding: 20px; /* Padding inside the form */
             border-radius: 10px; /* Rounded corners */
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Shadow for the form */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Shadow for the form */
             width: 100%; /* Full width */
             max-width: 600px; /* Max width of the form */
         }
@@ -45,7 +45,7 @@
         label {
             display: block; /* Labels on new lines */
             margin: 10px 0 5px; /* Margin for labels */
-            color: #333; /* Label text color */
+            color: black; /* Change label text color to black */
         }
 
         select, textarea {
@@ -54,6 +54,8 @@
             margin-bottom: 15px; /* Space below inputs */
             border: 1px solid #ccc; /* Border for inputs */
             border-radius: 5px; /* Rounded corners for inputs */
+            background-color: rgba(255, 255, 255, 0.8); /* Light transparent background for inputs */
+            color: black; /* Change input text color to black */
         }
 
         /* Styling for the dropdowns to be side by side */
@@ -61,10 +63,6 @@
             display: flex; /* Flexbox layout for dropdowns */
             justify-content: space-between; /* Space between dropdowns */
             gap: 10px; /* Space between dropdowns */
-        }
-
-        .dropdown-container select {
-            flex: 1; /* Make dropdowns take equal space */
         }
 
         button {
@@ -110,7 +108,7 @@
 </head>
 <body>
     <h1>Send Message</h1>
-    <form method="POST" action="/admin/send-message">
+    <form method="POST" action="{{ route('message.store') }}">
         @csrf
         <div class="dropdown-container">
             <div>
